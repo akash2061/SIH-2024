@@ -46,6 +46,7 @@
 
 
 
+
 # PROBLEM STATEMENT -1641
 
 ## Title : Create an Annual Report Portal for institute where all the departmental reports can be integrated and customized
@@ -80,6 +81,7 @@
 * Enhanced Customization: Allow for more granular customization of report templates and visualizations to meet specific institutional needs.
 * Global Expansion: Adapt the system for use in international institutions with varying compliance requirements and language preferences.
 * Mobile App Development: Develop dedicated mobile applications to provide even more accessibility and ease of use for on-the-go access.
+
 
 
 
