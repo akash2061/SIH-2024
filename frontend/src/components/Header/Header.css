@@ -1,9 +1,9 @@
-.main-container{
+.main-container {
     height: 12vh;
     width: 100vw;
 }
 
-.container{
+.container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,15 +11,15 @@
     padding: 15px 5px;
 }
 
-.left  img{
+.left img {
     height: 70px;
 }
 
-.right img{
+.right img {
     height: 70px;
 }
 
-.border{
+.border {
     background: linear-gradient(119.54deg, #000046 0, #1cb5e0 100%);
     height: 5px;
     width: 100vw;

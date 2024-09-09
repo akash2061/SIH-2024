@@ -6,7 +6,6 @@ const Testing = () => {
     const navigate = useNavigate();
 
     const handleButtonClick = (userType) => {
-        // Navigate to the App component based on button click
         navigate('/app');
     };
 

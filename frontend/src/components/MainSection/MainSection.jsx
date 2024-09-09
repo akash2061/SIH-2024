@@ -9,7 +9,6 @@ const MainSection = () => {
         e.preventDefault();
         if (aadhar.length === 12) {
             console.log('Form Submitted');
-            // Add your form submission logic here
         } else {
             alert('Please enter a valid 12-digit Aadhar number.');
         }

@@ -19,28 +19,45 @@
 
 /* Different background colors for each popup */
 .camera-popup {
-    background-color: #ffcccc; /* Light red */
+    background-color: #ffcccc;
+    /* Light red */
 }
 
 .cursor-popup {
-    background-color: #ccffcc; /* Light green */
+    background-color: #ccffcc;
+    /* Light green */
 }
 
 .keyboard-popup {
-    background-color: #ccccff; /* Light blue */
+    background-color: #ccccff;
+    /* Light blue */
 }
 
 
 @keyframes fadeInOut {
-    0% { opacity: 0; }
-    10% { opacity: 1; }
-    30% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 @media (max-width: 680px) {
-    .popup p{
+    .popup p {
         font-size: 0.7rem;
     }
 }

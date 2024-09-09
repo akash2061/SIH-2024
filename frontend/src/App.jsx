@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './App.css'; 
+import './App.css';
 import CameraPopup from './components/Popups/CameraPopup';
 import CursorPopup from './components/Popups/CursorPopup';
 import KeyboardPopup from './components/Popups/KeyboardPopup';
@@ -16,20 +16,20 @@ const App = () => {
         const cameraTimer = setTimeout(() => {
             setShowCameraPopup(false);
             setShowCursorPopup(true);
-        }, 1000); 
+        }, 1000);
 
-        
+
         const cursorTimer = setTimeout(() => {
             setShowCursorPopup(false);
             setShowKeyboardPopup(true);
-        }, 2000); 
+        }, 2000);
 
-        
+
         const keyboardTimer = setTimeout(() => {
             setShowKeyboardPopup(false);
-        }, 3000); 
+        }, 3000);
 
-		
+
         return () => {
             clearTimeout(cameraTimer);
             clearTimeout(cursorTimer);
@@ -41,16 +41,16 @@ const App = () => {
         <div className="app-container">
             {/* Main content */}
             <div className="main-content">
-                <Header/>
-                <MainSection/>
+                <Header />
+                <MainSection />
             </div>
 
             {/* Conditional rendering of pop-ups */}
-            {showCameraPopup && <CameraPopup/>}
-            {showCursorPopup && <CursorPopup/>}
-            {showKeyboardPopup && <KeyboardPopup/>}
+            {showCameraPopup && <CameraPopup />}
+            {showCursorPopup && <CursorPopup />}
+            {showKeyboardPopup && <KeyboardPopup />}
 
-            <Footer/>
+            <Footer />
         </div>
     );
 };

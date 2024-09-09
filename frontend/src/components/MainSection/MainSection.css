@@ -61,6 +61,7 @@ label {
 .underline-input:focus {
     border-bottom: 3px solid #000046;
 }
+
 .hidden {
     display: none;
 }
@@ -80,7 +81,7 @@ label {
 }
 
 .submit-btn:hover {
-    background:linear-gradient(119.54deg, #000046 0%, #1cb5e0 100%)
+    background: linear-gradient(119.54deg, #000046 0%, #1cb5e0 100%)
 }
 
 
