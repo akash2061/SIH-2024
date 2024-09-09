@@ -1,0 +1,38 @@
+.testing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.testing-heading {
+    font-size: 2rem;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    gap: 100px;
+}
+
+.testing-btn {
+    padding: 10px 20px;
+    height: 100px;
+    width: 200px;
+    font-size: 1.7rem;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(119.54deg, #000046 0%, #1cb5e0 100%);
+    color: white;
+}
+
+.testing-btn:hover {
+    background: linear-gradient(119.54deg, #1cb5e0 0%, #000046 100%);
+}

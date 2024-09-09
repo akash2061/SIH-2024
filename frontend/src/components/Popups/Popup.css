@@ -1,0 +1,46 @@
+/* Common popup styles */
+.popup {
+    position: fixed;
+    top: 20px;
+    right: 45%;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    opacity: 0;
+    animation: fadeInOut 3s forwards;
+}
+
+.popup p {
+    margin: 0;
+    font-size: 1em;
+    font-family: "Ubuntu", sans-serif;
+    color: #333;
+}
+
+/* Different background colors for each popup */
+.camera-popup {
+    background-color: #ffcccc; /* Light red */
+}
+
+.cursor-popup {
+    background-color: #ccffcc; /* Light green */
+}
+
+.keyboard-popup {
+    background-color: #ccccff; /* Light blue */
+}
+
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    30% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@media (max-width: 680px) {
+    .popup p{
+        font-size: 0.7rem;
+    }
+}

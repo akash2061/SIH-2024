@@ -1,0 +1,48 @@
+.main-container{
+    height: 12vh;
+    width: 100vw;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 80px;
+    padding: 15px 5px;
+}
+
+.left  img{
+    height: 70px;
+}
+
+.right img{
+    height: 70px;
+}
+
+.border{
+    background: linear-gradient(119.54deg, #000046 0, #1cb5e0 100%);
+    height: 5px;
+    width: 100vw;
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: row;
+        align-items: center;
+        margin: 10px 20px;
+    }
+
+    .left img,
+    .right img {
+        height: 35px;
+    }
+
+    .main-container {
+        height: 10vh;
+    }
+
+    .border {
+        height: 4px;
+    }
+}

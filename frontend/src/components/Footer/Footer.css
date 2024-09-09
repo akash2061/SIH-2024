@@ -1,0 +1,20 @@
+.footer {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0c1b47; 
+}
+
+.footer-text {
+    font-size: 0.9em;
+    color: #ffffff; 
+    text-align: center;
+    margin: 0; 
+}
+
+@media (max-width: 680px) {
+    .footer-text{
+        font-size: 0.7rem;
+    }
+}
