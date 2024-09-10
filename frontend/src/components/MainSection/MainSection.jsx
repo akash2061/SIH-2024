@@ -47,7 +47,7 @@ const MainSection = () => {
                         />
                     </div>
                     <button type="submit" className="submit-btn">
-                        Submit
+                        Login
                     </button>
                 </form>
             </div>
