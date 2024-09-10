@@ -4,7 +4,7 @@ Welcome to the official repository of **ZEROV2** for the **Smart India Hackathon
 
 
 ## Introduction
-The **ZEROV2** was formed to address real-world challenges as part of the **Smart India Hackathon 2024**.Our journey began with deep research into various problem statements and culminated in a robust, innovative solution that aims to make a real difference.
+The **ZEROV2** was formed to address real-world challenges as part of the **Smart India Hackathon 2024**. Our journey began with deep research into various problem statements and culminated in a robust, innovative solution that aims to make a real difference.
 
 This repository details every step of our journey, from initial brainstorming sessions to project deployment and feedback.
 
