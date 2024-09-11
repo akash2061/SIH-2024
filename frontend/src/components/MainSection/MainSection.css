@@ -1,4 +1,4 @@
-.main-section {
+/* .main-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,5 +107,251 @@ label {
     .submit-btn {
         font-size: 0.9rem;
         margin: 0;
+    }
+} */
+
+
+
+
+.main-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    position: relative;
+}
+
+.main-heading {
+    font-size: 1.7em;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card {
+    width: 600px;
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: relative;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(119.54deg, #000046 0%, #1cb5e0 100%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.form-group {
+    margin: 25px;
+    font-size: 1.3rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.underline-input {
+    width: 80%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid #3d3d3d;
+    outline: none;
+    font-size: 1em;
+    background-color: transparent;
+}
+
+.underline-input:focus {
+    border-bottom: 3px solid #000046;
+}
+
+.hidden {
+    display: none;
+}
+
+.submit-btn {
+    width: auto;
+    padding: 10px 20px;
+    margin: 25px;
+    background: linear-gradient(119.54deg, #000046 0%, #1cb5e0 100%);
+    color: white;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(119.54deg, #000047 0%, #1cb5e0 100%);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 1.5rem;
+    animation: scaleUp 1.5s ease-in-out;
+}
+
+.bot-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999; /* Make sure it's on top */
+}
+
+.bot-modal-content{
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+.bot-modal-content h3 {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 300px;
+}
+.bot-modal-content p {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 500;
+    text-align: center;
+    font-size: 1.1rem;
+    width: 300px;
+}
+
+
+
+.modal-close-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-close-btn:hover {
+    background-color: #c82333;
+}
+
+.submission-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submission-message p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.arrow-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 24px; /* Ensure the font size is large enough */
+    color: #000047; /* Customize the color if needed */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.7);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 680px) {
+    .main-heading {
+        font-size: 1.3rem;
+    }
+
+    .card {
+        padding: 15px;
+        width: 350px;
+    }
+
+    .form-group {
+        margin: 15px 0;
+        font-size: 1rem;
+    }
+
+    .underline-input {
+        font-size: 0.9rem;
+    }
+
+    .submit-btn {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .modal-content {
+        font-size: 1.2rem;
+        padding: 20px;
+    }
+
+    .arrow-btn {
+        font-size: 14px; 
+    }
+    
+    .submit-btn{
+        margin-right: 15px;
     }
 }
