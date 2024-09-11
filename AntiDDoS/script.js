@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 // Rate limiter
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000,
-    max: 1, // 1 for testing.
+    max: 2, // 2 for testing.
     message: "Too many requests from this IP, please try again later.",
     handler: (req, res, next, options) => {
         const ip = req.ip;
