@@ -1,3 +1,144 @@
+import React, { useState, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import './MainSection.css';
+
+const MainSection = () => {
+    const [aadhar, setAadhar] = useState('');
+    const [hiddenAadhar, setHiddenAadhar] = useState('');
+    const [showBotModal, setShowBotModal] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [buttonText, setButtonText] = useState('Login');
+    const [submissionMessage, setSubmissionMessage] = useState('');
+    const [lastActivityTime, setLastActivityTime] = useState(Date.now());
+    const [initialActivityDetected, setInitialActivityDetected] = useState(false);
+    const [verificationSuccess, setVerificationSuccess] = useState(false);
+    const inactivityTimeout = 5000; // 5 seconds
+
+    useEffect(() => {
+        const handleActivity = () => {
+            setLastActivityTime(Date.now());
+            if (!initialActivityDetected) {
+                setInitialActivityDetected(true);
+            }
+        };
+
+        window.addEventListener('mousemove', handleActivity);
+        window.addEventListener('keydown', handleActivity);
+
+        return () => {
+            window.removeEventListener('mousemove', handleActivity);
+            window.removeEventListener('keydown', handleActivity);
+        };
+    }, [initialActivityDetected]);
+
+    useEffect(() => {
+        const checkInactivity = () => {
+            if (Date.now() - lastActivityTime > inactivityTimeout) {
+                if (!initialActivityDetected) {
+                    setShowBotModal(true);
+                }
+            }
+        };
+
+        const interval = setInterval(checkInactivity, inactivityTimeout);
+
+        return () => clearInterval(interval);
+    }, [lastActivityTime, initialActivityDetected]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (showBotModal) {
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        setTimeout(() => {
+            setIsSubmitting(false);
+            if (aadhar.length === 12) {
+                setVerificationSuccess(true);
+                setButtonText('Verified Successfully !');
+                setSubmissionMessage('');
+            } else {
+                setButtonText('Login');
+                setSubmissionMessage('Please enter a valid 12-digit Aadhar number.');
+            }
+        }, 1500);
+    };
+
+    return (
+        <div className="main-section">
+            <h2 className="main-heading">Login to Aadhar</h2>
+            <div className="card">
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="aadhar">Aadhar Number</label>
+                        <input
+                            type="text"
+                            id="aadhar"
+                            name="aadhar"
+                            maxLength="12"
+                            pattern="\d{12}"
+                            value={aadhar}
+                            onChange={(e) => setAadhar(e.target.value)}
+                            required
+                            className="underline-input"
+                            placeholder="XXXX XXXX XXXX"
+                        />
+                    </div>
+                    <div className="form-group hidden">
+                        <label htmlFor="hiddenAadhar">Confirm Aadhar Number</label>
+                        <input
+                            type="text"
+                            id="hiddenAadhar"
+                            name="hiddenAadhar"
+                            value={hiddenAadhar}
+                            onChange={(e) => setHiddenAadhar(e.target.value)}
+                            className="underline-input"
+                        />
+                    </div>
+                    <button type="submit" className="submit-btn" disabled={isSubmitting || verificationSuccess}>
+                        {isSubmitting ? <CircularProgress size={24} /> : buttonText}
+                    </button>
+                    <button className="arrow-btn">
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                </form>
+            </div>
+            {submissionMessage && (
+                <div className="submission-message">
+                    <p>{submissionMessage}</p>
+                </div>
+            )}
+            {showBotModal && (
+                <div className="bot-modal">
+                    <div className="bot-modal-content">
+                        <h3>Bot Detected!</h3>
+                        <p>Please ensure you're not a bot.</p>
+                        <button onClick={() => setShowBotModal(false)} className="modal-close-btn">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default MainSection;
+
+
+
+
+
+
+
+
+
+
 // // import React, { useState } from 'react';
 // // import './MainSection.css';
 
@@ -826,136 +967,5 @@
 
 
 
-import React, { useState, useEffect } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import './MainSection.css';
-
-const MainSection = () => {
-    const [aadhar, setAadhar] = useState('');
-    const [hiddenAadhar, setHiddenAadhar] = useState('');
-    const [showBotModal, setShowBotModal] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [buttonText, setButtonText] = useState('Login');
-    const [submissionMessage, setSubmissionMessage] = useState('');
-    const [lastActivityTime, setLastActivityTime] = useState(Date.now());
-    const [initialActivityDetected, setInitialActivityDetected] = useState(false);
-    const [verificationSuccess, setVerificationSuccess] = useState(false);
-    const inactivityTimeout = 5000; // 5 seconds
-
-    useEffect(() => {
-        const handleActivity = () => {
-            setLastActivityTime(Date.now());
-            if (!initialActivityDetected) {
-                setInitialActivityDetected(true);
-            }
-        };
-
-        window.addEventListener('mousemove', handleActivity);
-        window.addEventListener('keydown', handleActivity);
-
-        return () => {
-            window.removeEventListener('mousemove', handleActivity);
-            window.removeEventListener('keydown', handleActivity);
-        };
-    }, [initialActivityDetected]);
-
-    useEffect(() => {
-        const checkInactivity = () => {
-            if (Date.now() - lastActivityTime > inactivityTimeout) {
-                if (!initialActivityDetected) {
-                    setShowBotModal(true);
-                }
-            }
-        };
-
-        const interval = setInterval(checkInactivity, inactivityTimeout);
-
-        return () => clearInterval(interval);
-    }, [lastActivityTime, initialActivityDetected]);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (showBotModal) {
-            return;
-        }
-
-        setIsSubmitting(true);
-
-        setTimeout(() => {
-            setIsSubmitting(false);
-            if (aadhar.length === 12) {
-                setVerificationSuccess(true);
-                setButtonText('Verified Successfully !');
-                setSubmissionMessage('');
-            } else {
-                setButtonText('Login');
-                setSubmissionMessage('Please enter a valid 12-digit Aadhar number.');
-            }
-        }, 1500);
-    };
-
-    return (
-        <div className="main-section">
-            <h2 className="main-heading">Login to Aadhar</h2>
-            <div className="card">
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="aadhar">Aadhar Number</label>
-                        <input
-                            type="text"
-                            id="aadhar"
-                            name="aadhar"
-                            maxLength="12"
-                            pattern="\d{12}"
-                            value={aadhar}
-                            onChange={(e) => setAadhar(e.target.value)}
-                            required
-                            className="underline-input"
-                            placeholder="XXXX XXXX XXXX"
-                        />
-                    </div>
-                    <div className="form-group hidden">
-                        <label htmlFor="hiddenAadhar">Confirm Aadhar Number</label>
-                        <input
-                            type="text"
-                            id="hiddenAadhar"
-                            name="hiddenAadhar"
-                            value={hiddenAadhar}
-                            onChange={(e) => setHiddenAadhar(e.target.value)}
-                            className="underline-input"
-                        />
-                    </div>
-                    <button type="submit" className="submit-btn" disabled={isSubmitting || verificationSuccess}>
-                        {isSubmitting ? <CircularProgress size={24} /> : buttonText}
-                    </button>
-                    <button className="arrow-btn">
-                            <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
-                </form>
-            </div>
-            {submissionMessage && (
-                <div className="submission-message">
-                    <p>{submissionMessage}</p>
-                </div>
-            )}
-            {showBotModal && (
-                <div className="bot-modal">
-                    <div className="bot-modal-content">
-                        <h3>Bot Detected!</h3>
-                        <p>Please ensure you're not a bot.</p>
-                        <button onClick={() => setShowBotModal(false)} className="modal-close-btn">
-                            Close
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-};
-
-export default MainSection;
 
 
