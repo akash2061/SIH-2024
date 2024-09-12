@@ -1,3 +1,5 @@
+![SIH-Banner](.github/SIH-Banner.jpg)
+
 # ZEROV2: SIH 2024 Journey
 
 Welcome to the official repository of **ZEROV2** for the **Smart India Hackathon (SIH) 2024**. This repository serves as a comprehensive walkthrough of our entire journey in the hackathon, covering everything from brainstorming and research to development and final submissions.
