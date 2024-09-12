@@ -8,11 +8,11 @@ This document presents the results of performance and security testing conducted
 
 ## ApacheBench Results:
 
-```
+```ruby
 ab -n 50 -c 5 http://localhost:5000/
 ```
 ### Output:
-```
+```ruby
 This is ApacheBench, Version 2.3 <$Revision: 1913912 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -66,11 +66,11 @@ Percentage of the requests served within a certain time (ms)
 
 ## Siege Results:
 
-```
+```ruby
 siege -c 10 -t 1M -v http://localhost:5000/
 ```
 ### Output:
-```
+```ruby
 ** SIEGE 4.1.3
 ** Preparing 10 concurrent users for battle.
 The server is now under siege...
@@ -128,7 +128,7 @@ Shortest transaction:	        0.01
 
 ## Using Curl:
 ### Output:
-```
+```ruby
 curl -H "X-Forwarded-For: 172.168.113.32" http://localhost:5000/
 Server is running                                                                                                    
 
