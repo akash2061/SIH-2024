@@ -3,17 +3,18 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const app = express();
 
-// Configure the proxy settings
-app.set('trust proxy', 1);
+// Configure the proxy settings properly
+app.set('trust proxy', 1); // Set to the number of proxies in front of your app
 
 app.use(cors());
+app.use(express.json()); // Ensure JSON parsing middleware is used
 
 const blockedIPs = new Map();
 
 function getClientIp(req) {
+    // Use X-Forwarded-For if present, otherwise use req.ip
     const forwarded = req.headers['x-forwarded-for'];
     const ip = forwarded ? forwarded.split(',')[0].trim() : req.ip;
-    // Handle IPv6 loopback address
     return ip === '::1' ? '127.0.0.1' : ip;
 }
 
@@ -32,9 +33,9 @@ app.use((req, res, next) => {
 
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 2, // 2 requests per minute
+    max: 100, // 5 requests per minute
     message: "Too many requests from this IP, please try again later.",
-    keyGenerator: (req) => getClientIp(req),
+    keyGenerator: (req) => getClientIp(req), // Ensure rate limit key is based on real IP
     handler: (req, res, next, options) => {
         const ip = getClientIp(req);
         console.log(`Rate limit exceeded for IP: ${ip}`);
@@ -54,4 +55,4 @@ app.post('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT} \nVisit: http://localhost:5000/`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT} \nVisit: http://localhost:${PORT}/`));
