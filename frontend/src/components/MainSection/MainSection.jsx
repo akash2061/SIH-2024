@@ -14,7 +14,7 @@ const MainSection = () => {
     const [lastActivityTime, setLastActivityTime] = useState(Date.now());
     const [initialActivityDetected, setInitialActivityDetected] = useState(false);
     const [verificationSuccess, setVerificationSuccess] = useState(false);
-    const inactivityTimeout = 5000; // 5 seconds
+    const inactivityTimeout = 3000; // 3 seconds
 
     useEffect(() => {
         const handleActivity = () => {
@@ -47,9 +47,32 @@ const MainSection = () => {
         return () => clearInterval(interval);
     }, [lastActivityTime, initialActivityDetected]);
 
+    useEffect(() => {
+        // Show bot modal immediately if hiddenAadhar changes
+        if (hiddenAadhar) {
+            setShowBotModal(true);
+        }
+    }, [hiddenAadhar]);
+
+    // Show bot modal and prevent form submission on any input change
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        if (id === 'aadhar') {
+            setAadhar(value);
+        } else if (id === 'hiddenAadhar') {
+            setHiddenAadhar(value);
+        }
+
+        // Show bot modal and prevent further interaction
+        if (hiddenAadhar || aadhar) {
+            setShowBotModal(true);
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Stop submission if bot modal is triggered
         if (showBotModal) {
             return;
         }
@@ -60,13 +83,13 @@ const MainSection = () => {
             setIsSubmitting(false);
             if (aadhar.length === 12) {
                 setVerificationSuccess(true);
-                setButtonText('Verified Successfully !');
+                setButtonText('Verified Successfully!');
                 setSubmissionMessage('');
             } else {
                 setButtonText('Login');
                 setSubmissionMessage('Please enter a valid 12-digit Aadhar number.');
             }
-        }, 1500);
+        }, 1000);
     };
 
     return (
@@ -81,9 +104,9 @@ const MainSection = () => {
                             id="aadhar"
                             name="aadhar"
                             maxLength="12"
-                            pattern="\d{12}"
+                            pattern="\d{12}" // Ensures exactly 12 digits
                             value={aadhar}
-                            onChange={(e) => setAadhar(e.target.value)}
+                            onChange={handleChange}
                             required
                             className="underline-input"
                             placeholder="XXXX XXXX XXXX"
@@ -96,16 +119,16 @@ const MainSection = () => {
                             id="hiddenAadhar"
                             name="hiddenAadhar"
                             value={hiddenAadhar}
-                            onChange={(e) => setHiddenAadhar(e.target.value)}
+                            onChange={handleChange}
                             className="underline-input"
                         />
                     </div>
-                    <button type="submit" className="submit-btn" disabled={isSubmitting || verificationSuccess}>
+                    <button type="submit" className="submit-btn" disabled={isSubmitting || verificationSuccess || showBotModal}>
                         {isSubmitting ? <CircularProgress size={24} /> : buttonText}
                     </button>
-                    <button className="arrow-btn">
-                            <FontAwesomeIcon icon={faArrowRight} />
-                        </button>
+                    <button className="arrow-btn" disabled={showBotModal}>
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </button>
                 </form>
             </div>
             {submissionMessage && (
@@ -129,6 +152,155 @@ const MainSection = () => {
 };
 
 export default MainSection;
+
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import CircularProgress from '@mui/material/CircularProgress';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+// import './MainSection.css';
+
+// const MainSection = () => {
+//     const [aadhar, setAadhar] = useState('');
+//     const [hiddenAadhar, setHiddenAadhar] = useState('');
+//     const [showBotModal, setShowBotModal] = useState(false);
+//     const [isSubmitting, setIsSubmitting] = useState(false);
+//     const [buttonText, setButtonText] = useState('Login');
+//     const [submissionMessage, setSubmissionMessage] = useState('');
+//     const [lastActivityTime, setLastActivityTime] = useState(Date.now());
+//     const [initialActivityDetected, setInitialActivityDetected] = useState(false);
+//     const [verificationSuccess, setVerificationSuccess] = useState(false);
+//     const inactivityTimeout = 3000; // 5 seconds
+
+//     useEffect(() => {
+//         const handleActivity = () => {
+//             setLastActivityTime(Date.now());
+//             if (!initialActivityDetected) {
+//                 setInitialActivityDetected(true);
+//             }
+//         };
+
+//         window.addEventListener('mousemove', handleActivity);
+//         window.addEventListener('keydown', handleActivity);
+
+//         return () => {
+//             window.removeEventListener('mousemove', handleActivity);
+//             window.removeEventListener('keydown', handleActivity);
+//         };
+//     }, [initialActivityDetected]);
+
+//     useEffect(() => {
+//         const checkInactivity = () => {
+//             if (Date.now() - lastActivityTime > inactivityTimeout) {
+//                 if (!initialActivityDetected) {
+//                     setShowBotModal(true);
+//                 }
+//             }
+//         };
+
+//         const interval = setInterval(checkInactivity, inactivityTimeout);
+
+//         return () => clearInterval(interval);
+//     }, [lastActivityTime, initialActivityDetected]);
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+    
+//         // Check if the hidden field is filled, indicating bot activity
+//         if (hiddenAadhar) {
+//             setShowBotModal(true);
+//             return; // Stop the submission process
+//         }
+    
+//         // Proceed with regular form submission
+//         if (showBotModal) {
+//             return;
+//         }
+    
+//         setIsSubmitting(true);
+    
+//         setTimeout(() => {
+//             setIsSubmitting(false);
+//             if (aadhar.length === 12) {
+//                 setVerificationSuccess(true);
+//                 setButtonText('Verified Successfully!');
+//                 setSubmissionMessage('');
+//             } else {
+//                 setButtonText('Login');
+//                 setSubmissionMessage('Please enter a valid 12-digit Aadhar number.');
+//             }
+//         }, 1000);
+//     };
+
+//     return (
+//         <div className="main-section">
+//             <h2 className="main-heading">Login to Aadhar</h2>
+//             <div className="card">
+//                 <form onSubmit={handleSubmit}>
+//                     <div className="form-group">
+//                         <label htmlFor="aadhar">Aadhar Number</label>
+//                         <input
+//                             type="text"
+//                             id="aadhar"
+//                             name="aadhar"
+//                             maxLength="12"
+//                             pattern="\d{12}" // Ensures exactly 12 digits
+//                             value={aadhar}
+//                             onChange={(e) => {
+//                                 // Allow only numbers in the input field
+//                                 const value = e.target.value;
+//                                 if (/^\d{0,12}$/.test(value)) {
+//                                     setAadhar(value);
+//                                 }
+//                             }}
+//                             required
+//                             className="underline-input"
+//                             placeholder="XXXX XXXX XXXX"
+//                         />
+//                     </div>
+//                     <div className="form-group hidden">
+//                         <label htmlFor="hiddenAadhar">Confirm Aadhar Number</label>
+//                         <input
+//                             type="text"
+//                             id="hiddenAadhar"
+//                             name="hiddenAadhar"
+//                             value={hiddenAadhar}
+//                             onChange={(e) => setHiddenAadhar(e.target.value)}
+//                             className="underline-input"
+//                         />
+//                     </div>
+//                     <button type="submit" className="submit-btn" disabled={isSubmitting || verificationSuccess}>
+//                         {isSubmitting ? <CircularProgress size={24} /> : buttonText}
+//                     </button>
+//                     <button className="arrow-btn">
+//                         <FontAwesomeIcon icon={faArrowRight} />
+//                     </button>
+//                 </form>
+//             </div>
+//             {submissionMessage && (
+//                 <div className="submission-message">
+//                     <p>{submissionMessage}</p>
+//                 </div>
+//             )}
+//             {showBotModal && (
+//                 <div className="bot-modal">
+//                     <div className="bot-modal-content">
+//                         <h3>Bot Detected!</h3>
+//                         <p>Please ensure you're not a bot.</p>
+//                         <button onClick={() => setShowBotModal(false)} className="modal-close-btn">
+//                             Close
+//                         </button>
+//                     </div>
+//                 </div>
+//             )}
+//         </div>
+//     );
+// };
+
+// export default MainSection;
 
 
 
