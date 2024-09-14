@@ -16,7 +16,7 @@ This repository details every step of our journey, from initial brainstorming se
 
 ### Contributors:
 
-+ **SuriBaba**              <a href="https://github.com/Suryansh0707" target="_blank"><img src="https://github.com/akash2061/akash2061/blob/main/icons/github_improved.png" style="height: 25px; width: 25px;"></a>
++ **Suryansh Madhukar**     <a href="https://github.com/Suryansh0707" target="_blank"><img src="https://github.com/akash2061/akash2061/blob/main/icons/github_improved.png" style="height: 25px; width: 25px;"></a>
 + **Mahipal Singh Jhala**   <a href="https://github.com/MahipalSinghJhala707" target="_blank"><img src="https://github.com/akash2061/akash2061/blob/main/icons/github_improved.png" style="height: 25px; width: 25px;"></a>
 + **Pratibha Singh**        <a href="https://github.com/pratibhasingh47" target="_blank"><img src="https://github.com/akash2061/akash2061/blob/main/icons/github_improved.png" style="height: 25px; width: 25px;"></a>
 + **Raghavendea Baheti**    <a href="https://github.com/Raghavendrabaheti" target="_blank"><img src="https://github.com/akash2061/akash2061/blob/main/icons/github_improved.png" style="height: 25px; width: 25px;"></a>
