@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 100, // 5 requests per minute
+    max: 5, // 5 requests per minute
     message: "Too many requests from this IP, please try again later.",
     keyGenerator: (req) => getClientIp(req), // Ensure rate limit key is based on real IP
     handler: (req, res, next, options) => {
