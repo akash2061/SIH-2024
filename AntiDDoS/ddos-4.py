@@ -3,7 +3,7 @@ import concurrent.futures
 import time
 
 NUM_IPS = 1000
-NUM_REQUESTS = 40  
+NUM_REQUESTS = 150
 
 def send_requests_from_ip(ip):
     print(f"Starting requests from IP {ip}")
@@ -34,7 +34,7 @@ def main():
 
     with concurrent.futures.ThreadPoolExecutor() as ip_executor:
         
-        for i in range(0, NUM_IPS, 2):
+        for i in range(0, NUM_IPS, 3):
             ip1, ip2, ip3 = generate_fake_ip_pair(i)
             ip_executor.submit(send_requests_from_ip, ip1)
             ip_executor.submit(send_requests_from_ip, ip2)
