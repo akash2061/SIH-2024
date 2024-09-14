@@ -2,7 +2,7 @@ import subprocess
 import concurrent.futures
 import time
 
-NUM_IPS = 100  
+NUM_IPS = 1000
 NUM_REQUESTS = 40  
 
 def send_requests_from_ip(ip):
