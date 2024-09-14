@@ -1,38 +1,47 @@
 import subprocess
 import concurrent.futures
+import time
 
-# Number of IPs to simulate and number of requests per IP
 NUM_IPS = 1000
-NUM_REQUESTS = 1000
+NUM_REQUESTS = 10 
 
-# Function to send a request to localhost:5000
-def send_request(ip):
+def send_requests_from_ip(ip):
+    print(f"Starting requests from IP {ip}")
     for i in range(NUM_REQUESTS):
         try:
-            # Use curl with the X-Forwarded-For header to spoof IP
+            print(f"IP {ip}: Sending request {i + 1}")
             subprocess.run([
                 'curl', 
-                '-s',  # Silent mode (don't show progress)
-                '-o', '/dev/null',  # Discard output to reduce overhead
-                '--header', f'X-Forwarded-For: {ip}',  # Spoof IP
+                '-s',  
+                '-o', '/dev/null',  
+                '--header', f'X-Forwarded-For: {ip}',  
                 'http://localhost:5000'
             ])
         except Exception as e:
-            print(f"Error sending request from IP {ip}: {e}")
+            print(f"Error sending request {i + 1} from IP {ip}: {e}")
 
-# Function to generate a fake IP address
-def generate_fake_ip(index):
-    # Simple IP generator: 192.168.1.X, where X is between 1 and 254
-    return f"192.168.1.{index % 254 + 1}"
+
+def generate_fake_ip_pair(index):
+    ip1 = f"{(index + 9) % 254 + 1}.{(index + 6) % 254 + 1}.{(index + 3) % 254 + 1}.{index % 254 + 1}"
+    ip2 = f"{(index + 10) % 254 + 1}.{(index + 7) % 254 + 1}.{(index + 4) % 254 + 1}.{(index + 1) % 254 + 1}"
+    ip3 = f"{(index + 11) % 254 + 1}.{(index + 8) % 254 + 1}.{(index + 5) % 254 + 1}.{(index + 2) % 254 + 1}"
+    return ip1, ip2, ip3
 
 def main():
-    # List of fake IP addresses
-    fake_ips = [generate_fake_ip(i) for i in range(NUM_IPS)]
+    start_time = time.time()
 
-    # Use ThreadPoolExecutor to send requests concurrently
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        # Submit a thread for each IP
-        executor.map(send_request, fake_ips)
+    print(f"Starting the DDoS simulation with {NUM_IPS} IPs, each sending {NUM_REQUESTS} requests.")
+
+    with concurrent.futures.ThreadPoolExecutor() as ip_executor:
+        
+        for i in range(0, NUM_IPS, 2):
+            ip1, ip2, ip3 = generate_fake_ip_pair(i)
+            ip_executor.submit(send_requests_from_ip, ip1)
+            ip_executor.submit(send_requests_from_ip, ip2)
+            ip_executor.submit(send_requests_from_ip, ip3)
+
+    total_time = time.time() - start_time
+    print(f"\nDDoS simulation completed in {total_time:.2f} seconds.")
 
 if __name__ == "__main__":
     main()
