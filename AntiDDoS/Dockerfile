@@ -1,8 +1,8 @@
 # Use the latest Arch Linux image
 FROM archlinux:latest
 
-# Install Node.js and npm
-RUN pacman -Syu --noconfirm nodejs npm
+# Install Node.js, npm and htop
+RUN pacman -Syu --noconfirm nodejs npm htop
 
 # Create app directory
 WORKDIR /usr/src/app
