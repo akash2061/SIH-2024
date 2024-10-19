@@ -1,17 +1,41 @@
-# Use the latest Arch Linux image
-FROM archlinux:latest
+# Stage 1: Build Stage
+FROM debian:bookworm AS builder
 
-# Install Node.js, npm and htop
-RUN pacman -Syu --noconfirm nodejs npm htop
+# Install build tools and Node.js
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create app directory
 WORKDIR /usr/src/app
 
-# Copy application code
-COPY . .
+# Copy package.json and package-lock.json first to leverage Docker cache
+COPY package*.json ./
 
 # Install app dependencies
 RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Stage 2: Production Stage
+FROM debian:bookworm
+
+# Install htop
+RUN apt-get update && apt-get install -y \
+    htop \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Copy only the necessary files from the builder stage
+COPY --from=builder /usr/src/app .
 
 # Expose the port the app runs on
 EXPOSE 5000
