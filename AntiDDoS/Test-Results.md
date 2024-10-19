@@ -6,6 +6,22 @@ This document presents the results of performance and security testing conducted
 + Test URL: http://localhost:5000/
 + Objective: Assess the server's ability to handle high request volumes and its response to potential DDoS attacks.
 
+## Docker Test Results
+
+### Anti-DDoS Container vs. Non-Secured Container:
+`Below are screenshots from the Docker container tests:`
+
+### Anti-DDoS Container:
+![AntiDDoS-Container](./assets/Secured.png)
+
+**Description**: The Anti-DDoS container exhibited controlled resource usage and successfully mitigated the attack by limiting excessive requests, leading to stable CPU and memory consumption.
+
+### Non-Secured Container (my-running-app):
+![My-Running-App](./assets/Non-Secured.png)
+
+**Description**: The non-secured container faced significantly higher CPU and memory usage, indicating vulnerability to unfiltered DDoS attacks. The absence of rate-limiting allowed incoming requests to overwhelm the system.
+
+
 ## ApacheBench Results:
 
 ```ruby
