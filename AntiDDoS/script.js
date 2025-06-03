@@ -3,16 +3,14 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const app = express();
 
-// Configure the proxy settings properly
 app.set('trust proxy', 1); // Set to the number of proxies in front of your app
 
 app.use(cors());
-app.use(express.json()); // Ensure JSON parsing middleware is used
+app.use(express.json()); 
 
 const blockedIPs = new Map();
 
 function getClientIp(req) {
-    // Use X-Forwarded-For if present, otherwise use req.ip
     const forwarded = req.headers['x-forwarded-for'];
     const ip = forwarded ? forwarded.split(',')[0].trim() : req.ip;
     return ip === '::1' ? '127.0.0.1' : ip;
